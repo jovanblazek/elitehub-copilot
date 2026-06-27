@@ -1,11 +1,7 @@
 import type { CodegenConfig } from '@graphql-codegen/cli'
 import 'dotenv/config'
 
-const ELITEHUB_VAULT_API_URL = 'https://elitehub-vault.jtblazek.sk/graphql'
-
-if (!process.env.ELITEHUB_VAULT_API_KEY) {
-  throw new Error('Missing ELITEHUB_VAULT_API_KEY required for GraphQL schema generation')
-}
+const ELITEHUB_VAULT_API_URL = 'https://vault.elitehub.eu/graphql'
 
 const CodegenConfigObject: CodegenConfig = {
   overwrite: true,
@@ -13,7 +9,9 @@ const CodegenConfigObject: CodegenConfig = {
     {
       [ELITEHUB_VAULT_API_URL]: {
         headers: {
-          'x-api-key': process.env.ELITEHUB_VAULT_API_KEY,
+          ...(process.env.ELITEHUB_VAULT_API_KEY
+            ? { 'x-api-key': process.env.ELITEHUB_VAULT_API_KEY }
+            : {}),
         },
       },
     },

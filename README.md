@@ -106,15 +106,13 @@ All notifications are sent with detailed information and direct links to INARA f
 
 ### GraphQL Schema Sync
 
-GraphQL generated files under `src/graphql/generated/` are committed to the repository and should be treated like build artifacts. Contributors do not need `ELITEHUB_VAULT_API_KEY` for normal development, typechecking, or builds as long as those files are up to date in git.
+There is GraphQL codegen set up for full type safety. Contributors **do not** need `ELITEHUB_VAULT_API_KEY` for normal development, typechecking, or builds. Providing an api key would only increase the request limit and allow SSE connections.
 
-If you change files in `src/graphql/documents/` or need to refresh the EliteHub Vault schema, set `ELITEHUB_VAULT_API_KEY` in your local `.env` and run:
+If you change files in `src/graphql/documents/` or need to refresh the generated schema, run:
 
 ```
 pnpm run graphql:pull-schema
 ```
-
-Commit the updated files from `src/graphql/generated/` together with the document changes.
 
 ### 💿 Migrations
 

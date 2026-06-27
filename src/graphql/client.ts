@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-request'
 
-export const ELITEHUB_VAULT_API_URL = 'https://elitehub-vault.jtblazek.sk/graphql'
+export const ELITEHUB_VAULT_API_URL = 'https://vault.elitehub.eu/graphql'
 export const ELITEHUB_VAULT_API_KEY_HEADER = 'x-api-key'
 
 export type EliteHubVaultClient = GraphQLClient
@@ -21,13 +21,17 @@ export const getEliteHubVaultRealtimeSseUrl = ({
 }
 
 export const createEliteHubVaultClient = () => {
-  if (!process.env.ELITEHUB_VAULT_API_KEY) {
+  // Require API key in production
+  if (process.env.NODE_ENV === 'production' && !process.env.ELITEHUB_VAULT_API_KEY) {
     throw new Error('Missing ELITEHUB_VAULT_API_KEY')
   }
 
   return new GraphQLClient(ELITEHUB_VAULT_API_URL, {
     headers: {
-      [ELITEHUB_VAULT_API_KEY_HEADER]: process.env.ELITEHUB_VAULT_API_KEY,
+      // Use key if set
+      ...(process.env.ELITEHUB_VAULT_API_KEY
+        ? { [ELITEHUB_VAULT_API_KEY_HEADER]: process.env.ELITEHUB_VAULT_API_KEY }
+        : {}),
     },
   })
 }

@@ -100,7 +100,7 @@ const fetchFactionSystemsPage = async ({
     after: after ?? null,
   })
 
-  return response.faction?.factionStates ?? null
+  return response.factionStates
 }
 
 const createSystemPage = ({
@@ -109,9 +109,7 @@ const createSystemPage = ({
   pageIndex,
   context,
 }: {
-  factionSystemsConnection: NonNullable<
-    NonNullable<FactionSystemsQuery['faction']>['factionStates']
-  >
+  factionSystemsConnection: NonNullable<NonNullable<FactionSystemsQuery['factionStates']>>
   tickTime: Dayjs
   pageIndex: number
   context: Parameters<FactionCommandHandler>[0]['context']
@@ -120,13 +118,13 @@ const createSystemPage = ({
     .map((edge): ParsedSystemData | null => {
       const node = edge?.node
 
-      if (!node?.system?.name || !node.system.updatedAt) {
+      if (!node?.system?.name || !node.updatedAt) {
         return null
       }
 
       return {
         systemName: node.system.name,
-        lastUpdate: dayjs(String(node.system.updatedAt)).utc(),
+        lastUpdate: dayjs(String(node.updatedAt)).utc(),
         currentInfluence: round(node.influence * 100, INFLUENCE_DECIMAL_PLACES),
         isInConflict: isSystemInConflict({
           activeStates: node.activeStates,
