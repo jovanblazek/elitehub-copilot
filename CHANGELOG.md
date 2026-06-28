@@ -1,3 +1,14 @@
+## [4.1.0](https://github.com/jovanblazek/elitehub-copilot/compare/v4.0.1...v4.1.0) (2026-06-28)
+
+### :sparkles: Features
+
+* Remove system processing in favor of SSE notifications ([#67](https://github.com/jovanblazek/elitehub-copilot/issues/67)) ([91f0b3b](https://github.com/jovanblazek/elitehub-copilot/commit/91f0b3bc6eb6d21771280a900fcc4944be3c9845))
+* Update faction systems command query ([#66](https://github.com/jovanblazek/elitehub-copilot/issues/66)) ([25046d2](https://github.com/jovanblazek/elitehub-copilot/commit/25046d2e54d9039e337958b8d48cde70eca29b72))
+
+### :octopus: Miscellaneous Chores
+
+* Cleanup Elitehub Vault migration ([#65](https://github.com/jovanblazek/elitehub-copilot/issues/65)) ([82464f9](https://github.com/jovanblazek/elitehub-copilot/commit/82464f9f47c8847bc4919f5b748e3454fb4abf7e))
+
 ## [4.0.1](https://github.com/jovanblazek/ed-copilot/compare/v4.0.0...v4.0.1) (2026-04-15)
 
 ### :bug: Bug Fixes

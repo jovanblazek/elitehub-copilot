@@ -1,6 +1,6 @@
 {
   "name": "elitehub-copilot",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "Elite Dangerous Discord bot",
   "main": "index.js",
   "private": true,
