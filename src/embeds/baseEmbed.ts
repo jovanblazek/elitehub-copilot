@@ -13,5 +13,5 @@ export const createEmbed = ({ title, description = null }: CreateEmbedProps) =>
 // .setAuthor({
 //   name: 'Copilot',
 //   iconURL:
-//     'https://raw.githubusercontent.com/jovanblazek/ED-Copilot/feature/typescript-overhaul/images/copilot-logo.png',
+//     'https://raw.githubusercontent.com/jovanblazek/elitehub-copilot/feature/typescript-overhaul/images/copilot-logo.png',
 // })

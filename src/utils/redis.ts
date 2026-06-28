@@ -27,7 +27,6 @@ export const loadTrackedFactionsFromDBToRedis = async () => {
   // Load only factions linked to guilds, not every faction in the DB
   const trackedGuildFactions = await Prisma.guildFaction.findMany({
     where: {
-      isSSEEnabled: false,
       notificationChannelId: {
         not: null,
       },

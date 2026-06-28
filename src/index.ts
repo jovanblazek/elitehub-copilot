@@ -1,7 +1,6 @@
 import type { Worker } from 'bullmq'
 import { Client, GatewayIntentBits } from 'discord.js'
 import Koa from 'koa'
-import startEDDNListenerProcess from './eddn/eddn'
 import { initEventHandlers } from './events'
 import { initMQ } from './mq'
 import { initVaultSseManager, shutdownVaultSseManager } from './realtime/vaultSseManager'
@@ -14,7 +13,6 @@ import './i18n/dayjsLocales'
 import './utils/environment'
 import './utils/sentry'
 
-let eddnProcess: ReturnType<typeof startEDDNListenerProcess> | null = null
 let BullMQWorkers: Worker[] = []
 const BotClient = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
@@ -50,9 +48,6 @@ Redis.on('ready', async () => {
   await loadTrackedFactionsFromDBToRedis()
   BullMQWorkers = initMQ({ client: BotClient })
   await initVaultSseManager()
-  if (process.env.NODE_ENV === 'production' || process.env.DEBUG_EDDN_LISTENER === 'true') {
-    eddnProcess = startEDDNListenerProcess()
-  }
 })
 
 // Graceful shutdown
@@ -70,13 +65,6 @@ const shutdown = async () => {
   logger.info('[Bot] Closing client connection...')
   await BotClient.destroy()
   logger.info('[Bot] Connection closed')
-
-  // Close EDDN worker
-  if (eddnProcess) {
-    logger.info('[EDDN] Initiating worker shutdown')
-    await eddnProcess.shutdown()
-    logger.info('[EDDN] Worker terminated')
-  }
 
   shutdownVaultSseManager()
 

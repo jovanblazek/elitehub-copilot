@@ -1,6 +1,6 @@
 import { RedisKeys } from '../../../constants'
 import { Redis } from '../../../utils/redis'
-import { EXPANSION_REDIS_EXPIRATION } from '../systemProcessing/constants'
+import { EXPANSION_REDIS_EXPIRATION } from './constants'
 import type { VaultRealtimeJobData } from './types'
 
 export const shouldEmitSseNotification = async ({

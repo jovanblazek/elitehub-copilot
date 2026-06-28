@@ -127,7 +127,6 @@ class VaultSseManager {
     try {
       const trackedGuildFactions = await Prisma.guildFaction.findMany({
         where: {
-          isSSEEnabled: true,
           notificationChannelId: {
             not: null,
           },

@@ -5,7 +5,6 @@ import { bold, hyperlink } from 'discord.js'
 import { ChannelType, type Client } from 'discord.js'
 import { Subscriber } from 'zeromq'
 import { inflateSync } from 'zlib'
-import { RedisKeys } from '../constants'
 import { createEmbed } from '../embeds'
 import L from '../i18n/i18n-node'
 import {
@@ -15,7 +14,6 @@ import {
   saveTickTimeToRedis,
 } from '../utils'
 import logger from '../utils/logger'
-import { Redis } from '../utils/redis'
 import type { HeartbeatMessage, TickMessage } from './types'
 
 const TICK_DETECTOR_HOST = 'tcp://infomancer.uk'
@@ -81,13 +79,6 @@ const reportTick = async (client: Client, tickTime: Dayjs) => {
   }
 }
 
-const cleanupProcessedSystem = async (systemName: string) => {
-  const oldKeys = await Redis.keys(RedisKeys.processedSystem({ systemName, tickTimestamp: '*' }))
-  if (oldKeys.length > 0) {
-    await Redis.del(oldKeys)
-  }
-}
-
 const processSystemTick = async (payload: TickMessage) => {
   try {
     if (payload.metrics.tickPass !== 'Either' && payload.metrics.tickPass !== 'Inf') {
@@ -108,7 +99,6 @@ const processSystemTick = async (payload: TickMessage) => {
       system: payload.system,
       tickTime,
     })
-    await cleanupProcessedSystem(payload.system)
   } catch (error) {
     logger.error(error, '[Tick Detector] Error processing system tick')
     Sentry.captureException(error)

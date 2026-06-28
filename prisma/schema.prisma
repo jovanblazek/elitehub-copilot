@@ -33,14 +33,13 @@ model User {
 }
 
 model GuildFaction {
-  id                      Int       @id @default(autoincrement())
-  guildId                 String    @unique
-  factionId               Int
-  shortName               String
-  notificationChannelId   String?
-  isSSEEnabled            Boolean   @default(false)
-  createdAt               DateTime  @default(now())
-  updatedAt               DateTime? @default(now()) @updatedAt
+  id                    Int       @id @default(autoincrement())
+  guildId               String    @unique
+  factionId             Int
+  shortName             String
+  notificationChannelId String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime? @default(now()) @updatedAt
 
   faction Faction @relation(fields: [factionId], references: [id])
   guild   Guild   @relation(fields: [guildId], references: [id], onDelete: Cascade)
@@ -50,37 +49,14 @@ model GuildFaction {
 
 model Faction {
   id              Int       @id @default(autoincrement())
-  name            String
+  name            String    @unique
   elitehubVaultId String    @unique
   createdAt       DateTime  @default(now())
   updatedAt       DateTime? @default(now()) @updatedAt
 
-  factionStates FactionState[]
   guildFactions GuildFaction[]
 
   @@index([elitehubVaultId, name])
-}
-
-enum StateType {
-  Pending
-  Active
-  Recovering
-}
-
-model FactionState {
-  id         BigInt    @id @default(autoincrement())
-  factionId  Int
-  systemName String
-  stateName  String
-  stateType  StateType
-  startedAt  DateTime
-  endedAt    DateTime?
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime? @default(now()) @updatedAt
-
-  faction Faction @relation(fields: [factionId], references: [id], onDelete: Cascade)
-
-  @@index([factionId, systemName])
 }
 
 model FleetCarrier {

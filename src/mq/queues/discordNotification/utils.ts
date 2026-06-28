@@ -2,6 +2,7 @@ import { type GuildFaction } from '@prisma/client'
 import * as Sentry from '@sentry/node'
 import type { Client } from 'discord.js'
 import { ChannelType } from 'discord.js'
+import { refreshVaultSseSubscriptions } from '../../../realtime/vaultSseManager'
 import { Prisma } from '../../../utils'
 import logger from '../../../utils/logger'
 import { loadTrackedFactionsFromDBToRedis } from '../../../utils/redis'
@@ -71,6 +72,7 @@ export const cleanupInvalidNotificationChannels = async (
       },
     })
     await loadTrackedFactionsFromDBToRedis()
+    await refreshVaultSseSubscriptions()
   } catch (error) {
     logger.error(error, 'Failed to cleanup invalid notification channels')
     Sentry.captureException(error)

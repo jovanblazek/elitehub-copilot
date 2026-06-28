@@ -1,9 +1,12 @@
 import type { Client } from 'discord.js'
 import { InaraUrl, StationTypeEmojis } from '../../../../constants'
 import { createEmbed } from '../../../../embeds'
+import type {
+  FactionConflictStatusEnum,
+  FactionConflictTypeEnum,
+} from '../../../../graphql/generated/graphql'
 import L from '../../../../i18n/i18n-node'
 import type { Locales, Translations } from '../../../../i18n/i18n-types'
-import { EDDNConflictStatus, EDDNWarType } from '../../../../types/eddn'
 import type {
   Conflict,
   DiscordNotificationJobData,
@@ -12,21 +15,21 @@ import type {
 import { getNotificationChannelFromGuildFactionOrThrow } from '../utils'
 
 const ConflictTypeTranslationMap: Record<
-  EDDNWarType,
+  FactionConflictTypeEnum,
   keyof Translations['discordNotification']['conflict']['title']
 > = {
-  [EDDNWarType.Election]: 'election',
-  [EDDNWarType.CivilWar]: 'civilWar',
-  [EDDNWarType.War]: 'war',
+  Election: 'election',
+  CivilWar: 'civilWar',
+  War: 'war',
 } as const
 
 const ConflictStatusTranslationMap: Record<
-  EDDNConflictStatus,
+  FactionConflictStatusEnum,
   keyof Translations['discordNotification']['conflict']['title']['war']
 > = {
-  [EDDNConflictStatus.Pending]: 'pending',
-  [EDDNConflictStatus.Active]: 'active',
-  [EDDNConflictStatus.Ended]: 'ended',
+  Pending: 'pending',
+  Active: 'active',
+  Concluded: 'ended',
 } as const
 
 const getEmbedTitle = ({
@@ -39,7 +42,7 @@ const getEmbedTitle = ({
   locale: Locales
 }) => {
   const { status, conflictType } = conflict
-  const emoji = status === EDDNConflictStatus.Ended ? '🕊️' : '🚨'
+  const emoji = status === 'Concluded' ? '🕊️' : '🚨'
   const conflictTypeKey = ConflictTypeTranslationMap[conflictType]
   const statusKey = ConflictStatusTranslationMap[status]
 

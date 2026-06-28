@@ -101,9 +101,6 @@ export const RedisKeys = {
   galaxyTickTime: 'tickTime',
   systemTickTime: ({ systemName }: { systemName: string }) => `tickTime:${systemName}`,
   trackedFactions: 'trackedFactions',
-  processedSystem: ({ tickTimestamp, systemName }: { tickTimestamp: string; systemName: string }) =>
-    `processedSystem:${systemName}:${tickTimestamp}`,
-  expansion: ({ factionId }: { factionId: number }) => `expansion:${factionId}`,
   sseExpansion: ({ factionId }: { factionId: string }) => `sseExpansion:${factionId}`,
   stationType: ({ systemName, stationName }: { systemName: string; stationName: string }) =>
     `stationType:${systemName}:${stationName}`,
