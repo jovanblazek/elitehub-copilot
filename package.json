@@ -1,5 +1,5 @@
 {
-  "name": "ED-Copilot",
+  "name": "elitehub-copilot",
   "version": "4.0.1",
   "description": "Elite Dangerous Discord bot",
   "main": "index.js",
@@ -22,14 +22,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jovanblazek/ed-copilot.git"
+    "url": "git+https://github.com/jovanblazek/elitehub-copilot.git"
   },
   "author": "jovanblazek",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jovanblazek/ED-Copilot/issues"
+    "url": "https://github.com/jovanblazek/elitehub-copilot/issues"
   },
-  "homepage": "https://github.com/jovanblazek/ED-Copilot#readme",
+  "homepage": "https://github.com/jovanblazek/elitehub-copilot#readme",
   "dependencies": {
     "@prisma/client": "^6.3.1",
     "@sentry/node": "^9.1.0",

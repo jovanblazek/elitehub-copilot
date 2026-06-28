@@ -8,8 +8,8 @@ import type { InaraEvent, InaraProfile, InaraResponse } from '../types/inara'
 
 const INARA_API_URL = 'https://inara.cz/inapi/v1/'
 
-const APP_NAME = 'ED-Copilot'
-const APP_VERSION = '2' // should match major version of the app
+const APP_NAME = 'elitehub-copilot'
+const APP_VERSION = '4' // should match major version of the app
 
 export const inaraRequest = async <T>(events: InaraEvent[]) => {
   const response = await got

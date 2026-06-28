@@ -4,16 +4,16 @@
 </div>
 
 <div align="center">
-  <a href="https://github.com/jovanblazek/ED-Copilot/issues" target="_blank">
-    <img src="https://img.shields.io/github/issues/jovanblazek/ED-Copilot" alt="Badge showing the number of open issues"/>
+  <a href="https://github.com/jovanblazek/elitehub-copilot/issues" target="_blank">
+    <img src="https://img.shields.io/github/issues/jovanblazek/elitehub-copilot" alt="Badge showing the number of open issues"/>
   </a>
 
-  <a href="https://github.com/jovanblazek/ED-Copilot" target="_blank">
-    <img src="https://img.shields.io/github/stars/jovanblazek/ED-Copilot" alt="Badge showing the number of project stars"/>
+  <a href="https://github.com/jovanblazek/elitehub-copilot" target="_blank">
+    <img src="https://img.shields.io/github/stars/jovanblazek/elitehub-copilot" alt="Badge showing the number of project stars"/>
   </a>
 
-  <a href="https://github.com/jovanblazek/ED-Copilot/blob/main/LICENSE" target="_blank">
-    <img src="https://img.shields.io/github/license/jovanblazek/ED-Copilot" alt="Badge showing the license type"/>
+  <a href="https://github.com/jovanblazek/elitehub-copilot/blob/main/LICENSE" target="_blank">
+    <img src="https://img.shields.io/github/license/jovanblazek/elitehub-copilot" alt="Badge showing the license type"/>
   </a>
 </div>
 
