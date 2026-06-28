@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/node'
-import { Queue, Worker } from 'bullmq'
+import { Worker } from 'bullmq'
 import type { Client } from 'discord.js'
 import { Prisma } from '../../../utils'
 import { Redis } from '../../../utils/redis'
@@ -14,6 +14,8 @@ import {
   validateGuildFactionsNotificationChannel,
 } from './utils'
 
+export { DiscordNotificationQueue } from './queue'
+
 const ConflictEventTypes = ['conflictPending', 'conflictStarted', 'conflictEnded'] as const
 const ExpansionEventTypes = ['expansionPending', 'expansionStarted', 'expansionEnded'] as const
 const RetreatEventTypes = ['retreatPending', 'retreatStarted', 'retreatEnded'] as const
@@ -21,22 +23,6 @@ const RetreatEventTypes = ['retreatPending', 'retreatStarted', 'retreatEnded'] a
 type ConflictEventType = (typeof ConflictEventTypes)[number]
 type ExpansionEventType = (typeof ExpansionEventTypes)[number]
 type RetreatEventType = (typeof RetreatEventTypes)[number]
-
-export const DiscordNotificationQueue = new Queue<DiscordNotificationJobData<keyof EventTypeMap>>(
-  QueueNames.discordNotification,
-  {
-    connection: Redis,
-    defaultJobOptions: {
-      attempts: 3,
-      backoff: {
-        type: 'exponential',
-        delay: 1000 * 60,
-      },
-      removeOnComplete: 100,
-      removeOnFail: 1000,
-    },
-  }
-)
 
 export const CreateDiscordNotificationWorker = ({ client }: { client: Client }) =>
   new Worker<DiscordNotificationJobData<keyof EventTypeMap>>(
