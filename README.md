@@ -75,6 +75,8 @@ Copilot can monitor your faction and notify you when certain events happen. To g
 
 Make sure you set the notification channel, otherwise the bot will not be able to send you notifications.
 
+Faction monitoring is driven by (EliteHub Vault)[https://github.com/jovanblazek/elitehub-vault].
+
 ### Available events
 
 Bot will notify you about:
@@ -107,6 +109,8 @@ All notifications are sent with detailed information and direct links to INARA f
 ### GraphQL Schema Sync
 
 There is GraphQL codegen set up for full type safety. Contributors **do not** need `ELITEHUB_VAULT_API_KEY` for normal development, typechecking, or builds. Providing an api key would only increase the request limit and allow SSE connections.
+
+If you want to test faction monitoring locally, you do need `ELITEHUB_VAULT_API_KEY`, because realtime faction notifications are sourced from the Vault SSE stream.
 
 If you change files in `src/graphql/documents/` or need to refresh the generated schema, run:
 

@@ -7,7 +7,6 @@ declare global {
       ELITEHUB_VAULT_API_KEY: string
       SENTRY_DSN: string | undefined
       POSTHOG_KEY: string | undefined
-      DEBUG_EDDN_LISTENER: 'true' | undefined
 
       // Postgres
       POSTGRES_PORT: string

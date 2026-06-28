@@ -4,33 +4,12 @@ import {
   FactionStateNotificationDetailsDocument,
 } from '../../../../graphql/generated/graphql'
 import { mapVaultStationType } from '../../../../graphql/utils'
-import type { FactionStateChangedEvent } from '../../../../realtime/types'
-import { EDDNConflictStatus, EDDNWarType } from '../../../../types/eddn'
+import type { FactionStateChangedEvent, FactionStateLifecycle } from '../../../../realtime/types'
 import type { DiscordNotificationJobData } from '../../discordNotification/types'
 
 type ConflictFactionStateChangedEvent = Extract<FactionStateChangedEvent, { stateKind: 'conflict' }>
 
-const mapConflictStatus = (status: 'Pending' | 'Active' | 'Concluded') => {
-  if (status === 'Pending') {
-    return EDDNConflictStatus.Pending
-  }
-  if (status === 'Active') {
-    return EDDNConflictStatus.Active
-  }
-  return EDDNConflictStatus.Ended
-}
-
-const mapConflictType = (type: 'Election' | 'CivilWar' | 'War') => {
-  if (type === 'Election') {
-    return EDDNWarType.Election
-  }
-  if (type === 'CivilWar') {
-    return EDDNWarType.CivilWar
-  }
-  return EDDNWarType.War
-}
-
-const getConflictNotificationType = (lifecycle: 'pending' | 'active' | 'ended') => {
+const getConflictNotificationType = (lifecycle: FactionStateLifecycle) => {
   if (lifecycle === 'pending') {
     return 'conflictPending' as const
   }
@@ -40,7 +19,7 @@ const getConflictNotificationType = (lifecycle: 'pending' | 'active' | 'ended') 
   return 'conflictEnded' as const
 }
 
-const getExpansionNotificationType = (lifecycle: 'pending' | 'active' | 'ended') => {
+const getExpansionNotificationType = (lifecycle: FactionStateLifecycle) => {
   if (lifecycle === 'pending') {
     return 'expansionPending' as const
   }
@@ -50,7 +29,7 @@ const getExpansionNotificationType = (lifecycle: 'pending' | 'active' | 'ended')
   return 'expansionEnded' as const
 }
 
-const getRetreatNotificationType = (lifecycle: 'pending' | 'active' | 'ended') => {
+const getRetreatNotificationType = (lifecycle: FactionStateLifecycle) => {
   if (lifecycle === 'pending') {
     return 'retreatPending' as const
   }
@@ -103,8 +82,8 @@ const processConflictState = async ({
             wonDays: conflict.opponentWonDays,
             stationType: mapVaultStationType(conflict.opponentStakeStation?.stationType ?? null),
           },
-          status: mapConflictStatus(conflict.status),
-          conflictType: mapConflictType(conflict.type),
+          status: conflict.status,
+          conflictType: conflict.type,
         },
       },
     },

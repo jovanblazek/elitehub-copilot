@@ -7,6 +7,7 @@ export type SseEventType = (typeof SseEventTypes)[number]
 export const FACTION_IDS_PER_SSE_CONNECTION = 20
 
 const FactionStateLifecycleSchema = z.enum(['pending', 'active', 'ended'])
+export type FactionStateLifecycle = z.infer<typeof FactionStateLifecycleSchema>
 
 const BaseFactionStateChangedEventSchema = z.object({
   event: z.literal('factionStateChanged'),

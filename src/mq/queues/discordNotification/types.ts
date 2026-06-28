@@ -1,6 +1,9 @@
 import type { Faction, Guild, GuildFaction } from '@prisma/client'
 import type { StationType } from '../../../constants'
-import type { EDDNConflictStatus, EDDNWarType } from '../../../types/eddn'
+import type {
+  FactionConflictStatusEnum,
+  FactionConflictTypeEnum,
+} from '../../../graphql/generated/graphql'
 
 type ConflictFaction = {
   name: string
@@ -12,8 +15,8 @@ type ConflictFaction = {
 export type Conflict = {
   faction1: ConflictFaction
   faction2: ConflictFaction
-  status: EDDNConflictStatus
-  conflictType: EDDNWarType
+  status: FactionConflictStatusEnum
+  conflictType: FactionConflictTypeEnum
 }
 
 type ConflictEventData = {
@@ -46,7 +49,7 @@ export type EventTypeMap = {
 }
 
 export type DiscordNotificationJobData<T extends keyof EventTypeMap = keyof EventTypeMap> = {
-  source: 'eddn' | 'sse'
+  source: 'sse'
   systemName: string
   factionName: string
   factionInfluence: number
