@@ -113,7 +113,6 @@ export const onInteractionCreate = async (interaction: Interaction) => {
         has_faction_setup: !!guildFaction,
         faction_name: guildFaction?.faction?.name || null,
         notification_channel_configured: !!guildFaction?.notificationChannelId,
-        sse_enabled: !!guildFaction?.isSSEEnabled,
         interaction_id: interaction.id,
         channel_type: interaction.channel?.type,
       },

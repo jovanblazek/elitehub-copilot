@@ -76,7 +76,6 @@ export const onGuildLeave = async ({ id, name, memberCount }: Guild) => {
         had_faction_setup: !!guildData?.guildFaction,
         faction_name: guildData?.guildFaction?.faction?.name || null,
         had_notification_channel: !!guildData?.guildFaction?.notificationChannelId,
-        had_sse_enabled: !!guildData?.guildFaction?.isSSEEnabled,
         had_tick_report_channel: !!guildData?.tickReportChannelId,
         language: guildData?.language || 'unknown',
         timezone: guildData?.timezone || 'unknown',

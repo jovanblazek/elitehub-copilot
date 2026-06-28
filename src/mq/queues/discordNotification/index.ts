@@ -57,7 +57,6 @@ export const CreateDiscordNotificationWorker = ({ client }: { client: Client }) 
 
         const guildFactionsFromDB = await Prisma.guildFaction.findMany({
           where: {
-            isSSEEnabled: source === 'sse',
             notificationChannelId: {
               not: null,
             },
